@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+    android:padding="25dp"
+tools:context=".activities.MainActivity">
+
+    <EditText
+        android:id="@+id/input_title"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:hint="Title"
+        android:inputType="text"
+        android:padding="8dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/input_description"
+        android:layout_width="0dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:gravity="top|left"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:maxLines="3"
+        android:minLines="3"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_title" />
+
+    <EditText
+        android:id="@+id/input_users"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="25dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:gravity="top|left"
+        android:hint="User1(Full name,mail) \nUser2(Full name,mail) \n..."
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:maxLines="10"
+        android:minLines="3"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/border"
+        android:hint="Select Date..."
+        android:padding="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_description" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_users" />
+
+</android.support.constraint.ConstraintLayout>
