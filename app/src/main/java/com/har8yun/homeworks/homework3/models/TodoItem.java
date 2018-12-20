@@ -2,18 +2,71 @@ package com.har8yun.homeworks.homework3.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Random;
 
 public class TodoItem implements Parcelable{
-    private long id;
+
+    private long id = new Random().nextLong();
     private String title;
     private String description;
     private Date date = new Date();
-    private List<User> users;
+    private String repetition;
+    private int priority;
+    private ArrayList<User> users;
+
+    public TodoItem() {
+    }
+
+    public TodoItem(long id, String title, String description, Date date, String repetition, int priority, ArrayList<User> users) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.repetition = repetition;
+        this.priority = priority;
+        this.users = users;
+    }
+
+    protected TodoItem(Parcel in) {
+        id = in.readLong();
+        title = in.readString();
+        description = in.readString();
+        date = new Date(in.readLong());
+        repetition = in.readString();
+        priority = in.readInt();
+        users = in.createTypedArrayList(User.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeLong(date.getTime());
+        dest.writeString(repetition);
+        dest.writeInt(priority);
+        dest.writeTypedList(users);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<TodoItem> CREATOR = new Creator<TodoItem>() {
+        @Override
+        public TodoItem createFromParcel(Parcel in) {
+            return new TodoItem(in);
+        }
+
+        @Override
+        public TodoItem[] newArray(int size) {
+            return new TodoItem[size];
+        }
+    };
+
 
     public long getId() {
         return id;
@@ -47,51 +100,29 @@ public class TodoItem implements Parcelable{
         this.date = date;
     }
 
-    public List<User> getUsers() {
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public String getRepetition() {
+        return repetition;
+    }
+
+    public void setRepetition(String repetition) {
+        this.repetition = repetition;
+    }
+
+    public ArrayList<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(ArrayList<User> users) {
         this.users = users;
-        for (User u : users) {
-            Log.e("abov5",""+u.getFullName()+"===="+u.getMail());
-        }
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);
-        dest.writeString(title);
-        dest.writeString(description);
-        dest.writeLong(date.getTime());
-        dest.writeList(users);
-    }
-
-    public static final Parcelable.Creator<TodoItem> CREATOR = new Parcelable.Creator<TodoItem>() {
-        @Override
-        public TodoItem createFromParcel(Parcel source) {
-            return  TodoItem.createFromParcel(source);
-        }
-
-        @Override
-        public TodoItem[] newArray(int size) {
-            return new TodoItem[size];
-        }
-    };
-
-    private static TodoItem createFromParcel(Parcel source) {
-        TodoItem todoItem = new TodoItem();
-        todoItem.users = new ArrayList<>();
-        todoItem.id = source.readLong();
-        todoItem.title = source.readString();
-        todoItem.description = source.readString();
-        todoItem.date = new Date(source.readLong());
-        source.readTypedList(todoItem.users,User.CREATOR);
-        return todoItem;
-    }
 }

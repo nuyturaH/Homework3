@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextLabel" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="descriptionHint" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">15sp</item>
+    </style>
+
 </resources>

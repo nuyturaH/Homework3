@@ -64,6 +64,6 @@ public class User implements Parcelable{
 
     @Override
     public String toString() {
-        return fullName + "|" + mail;
+        return fullName + "|" + mail + "\n";
     }
 }
