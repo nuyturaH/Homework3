@@ -104,9 +104,7 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
                     radioRepetitionGroup.setVisibility(View.VISIBLE);
                     radioRepetitionGroup.check(R.id.radiobutton_daily);
 
-                    int repSelectedId = radioRepetitionGroup.getCheckedRadioButtonId();
-                    radioRepetitionButton = findViewById(repSelectedId);
-                    mTodoItem.setRepetition(radioRepetitionButton.getText().toString());
+
 
                 }else {
                     radioRepetitionGroup.clearCheck();
@@ -153,6 +151,12 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
                 if (!isDateViewPressed){
                     Toast.makeText(CreateItemActivity.this, "Select Date", Toast.LENGTH_SHORT).show();
                     return;
+                }
+
+                if(repeatCheckbox.isChecked()){
+                    int repSelectedId = radioRepetitionGroup.getCheckedRadioButtonId();
+                    radioRepetitionButton = findViewById(repSelectedId);
+                    mTodoItem.setRepetition(radioRepetitionButton.getText().toString());
                 }
 
                 save();
