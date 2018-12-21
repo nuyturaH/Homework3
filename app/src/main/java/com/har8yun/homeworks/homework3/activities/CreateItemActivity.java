@@ -62,12 +62,10 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
         descriptionInput = findViewById(R.id.input_description);
         dateView = findViewById(R.id.date);
         timeView = findViewById(R.id.time);
-        usersInput = findViewById(R.id.input_users);
+        //usersInput = findViewById(R.id.input_users);
         radioPriorityGroup = findViewById(R.id.radiogroup_priorities);
         radioRepetitionGroup = findViewById(R.id.radiogroup_repetitions);
         repeatCheckbox = findViewById(R.id.checkbox_repeat);
-
-
 
         Button saveButton = findViewById(R.id.btn_save);
 
@@ -106,9 +104,15 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
                     radioRepetitionGroup.setVisibility(View.VISIBLE);
                     radioRepetitionGroup.check(R.id.radiobutton_daily);
 
+                    int repSelectedId = radioRepetitionGroup.getCheckedRadioButtonId();
+                    radioRepetitionButton = findViewById(repSelectedId);
+                    mTodoItem.setRepetition(radioRepetitionButton.getText().toString());
+
                 }else {
                     radioRepetitionGroup.clearCheck();
                     radioRepetitionGroup.setVisibility(View.GONE);
+
+                    mTodoItem.setRepetition(null);
                 }
             }
         });
@@ -118,7 +122,7 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
             public void onClick(View v) {
                 mTodoItem.setTitle(titleInput.getText().toString());
                 mTodoItem.setDescription(descriptionInput.getText().toString());
-                mTodoItem.setUsers(giveUsers());
+                //mTodoItem.setUsers(giveUsers());
 
                 int prSelectedId = radioPriorityGroup.getCheckedRadioButtonId();
                 radioPriorityButton = findViewById(prSelectedId);
@@ -136,13 +140,6 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
                         mTodoItem.setPriority(0xFF888888);
                         break;
                     }
-
-                if (repeatCheckbox.isChecked())
-                {
-                    int repSelectedId = radioRepetitionGroup.getCheckedRadioButtonId();
-                    radioRepetitionButton = findViewById(repSelectedId);
-                    mTodoItem.setRepetition(radioRepetitionButton.getText().toString());
-                }
 
 
                 if (titleInput.getText().toString().equals("")){
@@ -205,6 +202,9 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
             }else if (todoItem.getRepetition().equals(mRadioRepetitionButton.getText().toString())){
                 mRadioRepetitionButton.setChecked(true);
             }
+        }else {
+            radioRepetitionGroup.clearCheck();
+            radioRepetitionGroup.setVisibility(View.GONE);
         }
 
         switch (todoItem.getPriority()){
@@ -266,17 +266,17 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
         timePickerDialog.show();
     }
 
-    private ArrayList<User> giveUsers(){
-        ArrayList<User> users = new ArrayList<>();
-        if (!usersInput.getText().toString().matches("")) {
-            String line1[] = usersInput.getText().toString().split("\\r?\\n");
-            for (int i = 0; i < line1.length; i++) {
-                String line2[] = line1[i].split(",");
-                users.add(new User(line2[0], line2[1]));
-            }
-        }
-        return users;
-    }
+//    private ArrayList<User> giveUsers(){
+//        ArrayList<User> users = new ArrayList<>();
+//        if (!usersInput.getText().toString().matches("")) {
+//            String line1[] = usersInput.getText().toString().split("\\r?\\n");
+//            for (int i = 0; i < line1.length; i++) {
+//                String line2[] = line1[i].split(",");
+//                users.add(new User(line2[0], line2[1]));
+//            }
+//        }
+//        return users;
+//    }
 
     private void save() {
         if (mTodoItem != null) {

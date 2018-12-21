@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.har8yun.homeworks.homework3.R;
 import com.har8yun.homeworks.homework3.adapter.ToDoItemRecyclerAdapter;
 import com.har8yun.homeworks.homework3.models.TodoItem;
@@ -22,7 +21,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final String ARG_TODOITEM2 = "arg.todoitem2";
     public static final int REQUEST_CODE_1 = 13;
-    //private static final int REQUEST_CODE_ADD = 13;
     private static final int REQUEST_CODE_EDIT = 14;
     public static TodoItem todoItem;
     TodoItem item;
@@ -65,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     TodoItem todoItem = data.getParcelableExtra(CreateItemActivity.ARG_TODOITEM);
                     mRecyclerAdapter.updateItem(todoItem);
+
+                    for (int i = 0; i < todoItemList.size(); i++) {
+                        if (todoItem.getId()==todoItemList.get(i).getId()){
+                            todoItemList.set(i, todoItem);
+                        }
+                    }
+
                 }
             }
             break;
@@ -102,14 +107,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(mRecyclerAdapter);
         mRecyclerAdapter.addItems(todoItemList);
     }
-
-
-
-
-//    private void openAddTodoItem() {
-//        Intent intent = new Intent(this, CreateItemActivity.class);
-//        startActivityForResult(intent, REQUEST_CODE_ADD);
-//    }
 
     private void openEditTodoItem(TodoItem todoItem) {
         Intent intent = new Intent(this, CreateItemActivity.class);
