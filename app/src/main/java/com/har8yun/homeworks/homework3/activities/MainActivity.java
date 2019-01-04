@@ -7,19 +7,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.har8yun.homeworks.homework3.R;
-import com.har8yun.homeworks.homework3.adapter.ToDoItemRecyclerAdapter;
+import com.har8yun.homeworks.homework3.adapter.TodoItemRecyclerAdapter;
 import com.har8yun.homeworks.homework3.models.TodoItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-
-
 public class MainActivity extends AppCompatActivity {
-    public static final String ARG_TODOITEM2 = "arg.todoitem2";
     public static final int REQUEST_CODE_1 = 13;
     private static final int REQUEST_CODE_EDIT = 14;
     public static TodoItem todoItem;
@@ -28,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     List<TodoItem> todoItemList = new ArrayList<>();
 
     TextView infoText;
-    ToDoItemRecyclerAdapter mRecyclerAdapter;
+    TodoItemRecyclerAdapter mRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        mRecyclerAdapter = new ToDoItemRecyclerAdapter();
+        mRecyclerAdapter = new TodoItemRecyclerAdapter();
         mRecyclerAdapter.setmOnRvItemClickListener(
-                new ToDoItemRecyclerAdapter.OnRvItemClickListener() {
+                new TodoItemRecyclerAdapter.OnRvItemClickListener() {
                     @Override
                     public void onItemClicked(int pos) {
 

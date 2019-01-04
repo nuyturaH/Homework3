@@ -2,7 +2,6 @@ package com.har8yun.homeworks.homework3.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
-public class ToDoItemRecyclerAdapter extends RecyclerView.Adapter<ToDoItemRecyclerAdapter.ToDoItemViewHolder> {
+
+public class TodoItemRecyclerAdapter extends RecyclerView.Adapter<TodoItemRecyclerAdapter.ToDoItemViewHolder> {
 
     private List<TodoItem> mData = new ArrayList<>();
     private static OnRvItemClickListener mOnRvItemClickListener;
@@ -27,17 +26,13 @@ public class ToDoItemRecyclerAdapter extends RecyclerView.Adapter<ToDoItemRecycl
     @Override
     public ToDoItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_todo_item, parent, false);       //view_todo_item is our xml file,,
-
-        // so we give an example of View that we want to create every time,to inflater
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_todo_item, parent, false);
         return new ToDoItemViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ToDoItemViewHolder holder, final int position)
     {
-
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd MMM yyyy, hh:mm");
 
         TodoItem todoItem = mData.get(position);
@@ -47,6 +42,11 @@ public class ToDoItemRecyclerAdapter extends RecyclerView.Adapter<ToDoItemRecycl
         holder.date.setText(simpleDateformat.format(todoItem.getDate()));
         holder.priority.setBackgroundColor(todoItem.getPriority());
 
+    }
+
+    @Override
+    public int getItemCount() {
+        return mData.size();
     }
 
     public static class ToDoItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -62,11 +62,11 @@ public class ToDoItemRecyclerAdapter extends RecyclerView.Adapter<ToDoItemRecycl
             description = itemView.findViewById(R.id.description_view_todo_item);
             date = itemView.findViewById(R.id.date_view_todo_item);
             priority = itemView.findViewById(R.id.priority_view_todo_item);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mOnRvItemClickListener.onItemClicked(getAdapterPosition());
-
                 }
             });
         }
@@ -77,10 +77,6 @@ public class ToDoItemRecyclerAdapter extends RecyclerView.Adapter<ToDoItemRecycl
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return mData.size();
-    }
 
     public void addItems(Collection<TodoItem> items) {
         mData.addAll(items);
@@ -89,18 +85,6 @@ public class ToDoItemRecyclerAdapter extends RecyclerView.Adapter<ToDoItemRecycl
 
 
     public void updateItem(TodoItem item) {
-        Log.e("mmmm","mtav updati mej");
-        // Find item and update
-        // Not the best solution, it is possible update an item by accepting position
-        // from outside. For current data structure and 'client' implementation
-        // this is best of worst.
-//        for (int i = 0; i < mData.size(); i++) {
-//            if (Objects.equals(item, mData.get(i))) {
-//                mData.set(i, item);
-//                notifyItemChanged(i);
-//            }
-//        }
-
         for (int i = 0; i < mData.size(); i++) {
             if (item.getId()== mData.get(i).getId()) {
                 mData.set(i, item);
@@ -109,9 +93,6 @@ public class ToDoItemRecyclerAdapter extends RecyclerView.Adapter<ToDoItemRecycl
         }
 
     }
-
-
-
 
     public void setmOnRvItemClickListener(OnRvItemClickListener mOnRvItemClickListener) {
         this.mOnRvItemClickListener = mOnRvItemClickListener;

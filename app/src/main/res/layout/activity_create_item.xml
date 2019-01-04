@@ -141,8 +141,6 @@
                 android:background="@drawable/border"
                 android:padding="9dp"
                 app:layout_constraintBottom_toTopOf="@+id/priorityConstraintLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/date"
                 app:layout_constraintTop_toBottomOf="@+id/date">
 

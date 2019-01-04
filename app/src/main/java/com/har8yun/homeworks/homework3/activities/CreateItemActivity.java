@@ -35,7 +35,6 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
     public static final String ARG_TODO_ITEM = "arg.todo.item";
 
     private TodoItem mTodoItem = new TodoItem();
-    private Date mDate;
     private Calendar cal = Calendar.getInstance();
     private boolean isDateViewPressed;
 
@@ -188,7 +187,7 @@ public class CreateItemActivity extends AppCompatActivity implements AdapterView
 
         titleInput.setText(todoItem.getTitle());
         descriptionInput.setText(todoItem.getDescription());
-        mDate = todoItem.getDate();
+        Date mDate = todoItem.getDate();
         cal.setTime(mDate);
         isDateViewPressed = true;
         SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd MMM yyyy");
