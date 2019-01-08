@@ -161,12 +161,10 @@ public class TodoItemListFragment extends Fragment implements SortOnClickListene
                                 for (int i = 0; i < removedItemsPosition.size(); i++) {
                                     if (removedItemsPosition.get(i)==pos){
                                         removedItemsPosition.remove(i);
-                                        Log.e("zzz","Remove to removed list "+item.getTitle());
 
                                     }
                                 }
                             }
-                            Log.e("zzz","Removed items list size "+removedItemsPosition.size()+"\n");
 
                             mActionMode.setTitle(selectedItemsCount + " Selected");
                         }
