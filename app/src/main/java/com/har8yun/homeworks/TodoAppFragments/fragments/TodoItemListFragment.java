@@ -1,8 +1,7 @@
-package com.har8yun.homeworks.homework3.fragments;
+package com.har8yun.homeworks.TodoAppFragments.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,12 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.SearchView;
-import android.widget.Toast;
 
-import com.har8yun.homeworks.homework3.R;
-import com.har8yun.homeworks.homework3.util.SortOnClickListener;
-import com.har8yun.homeworks.homework3.adapter.TodoItemRecyclerAdapter;
-import com.har8yun.homeworks.homework3.models.TodoItem;
+import com.har8yun.homeworks.TodoAppFragments.adapter.TodoItemRecyclerAdapter;
+import com.har8yun.homeworks.TodoAppFragments.R;
+import com.har8yun.homeworks.TodoAppFragments.util.SortOnClickListener;
+import com.har8yun.homeworks.TodoAppFragments.models.TodoItem;
 
 import java.util.ArrayList;
 import java.util.Collections;

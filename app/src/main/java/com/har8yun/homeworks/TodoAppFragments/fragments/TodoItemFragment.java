@@ -1,4 +1,4 @@
-package com.har8yun.homeworks.homework3.fragments;
+package com.har8yun.homeworks.TodoAppFragments.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -23,10 +23,10 @@ import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.har8yun.homeworks.homework3.R;
-import com.har8yun.homeworks.homework3.util.EditOnClickListener;
-import com.har8yun.homeworks.homework3.activities.MainActivity;
-import com.har8yun.homeworks.homework3.models.TodoItem;
+import com.har8yun.homeworks.TodoAppFragments.activities.MainActivity;
+import com.har8yun.homeworks.TodoAppFragments.R;
+import com.har8yun.homeworks.TodoAppFragments.util.EditOnClickListener;
+import com.har8yun.homeworks.TodoAppFragments.models.TodoItem;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

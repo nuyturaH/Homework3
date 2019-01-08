@@ -1,4 +1,4 @@
-package com.har8yun.homeworks.homework3.util;
+package com.har8yun.homeworks.TodoAppFragments.util;
 
 public interface EditOnClickListener{
     void editOnClickListener(boolean b);

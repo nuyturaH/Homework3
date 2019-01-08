@@ -1,20 +1,19 @@
-package com.har8yun.homeworks.homework3.activities;
+package com.har8yun.homeworks.TodoAppFragments.activities;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
-import com.har8yun.homeworks.homework3.R;
-import com.har8yun.homeworks.homework3.fragments.TodoItemFragment;
-import com.har8yun.homeworks.homework3.fragments.TodoItemListFragment;
-import com.har8yun.homeworks.homework3.models.TodoItem;
-import com.har8yun.homeworks.homework3.util.EditOnClickListener;
-import com.har8yun.homeworks.homework3.util.SortOnClickListener;
+import com.har8yun.homeworks.TodoAppFragments.R;
+import com.har8yun.homeworks.TodoAppFragments.fragments.TodoItemFragment;
+import com.har8yun.homeworks.TodoAppFragments.fragments.TodoItemListFragment;
+import com.har8yun.homeworks.TodoAppFragments.models.TodoItem;
+import com.har8yun.homeworks.TodoAppFragments.util.EditOnClickListener;
+import com.har8yun.homeworks.TodoAppFragments.util.SortOnClickListener;
 
 
 public class MainActivity extends AppCompatActivity implements TodoItemListFragment.OnFragmentInteractionListener, TodoItemFragment.OnFragmentInteractionListener {

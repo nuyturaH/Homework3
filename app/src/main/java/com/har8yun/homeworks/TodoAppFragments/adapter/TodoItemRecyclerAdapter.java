@@ -1,23 +1,20 @@
-package com.har8yun.homeworks.homework3.adapter;
+package com.har8yun.homeworks.TodoAppFragments.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.har8yun.homeworks.homework3.R;
-import com.har8yun.homeworks.homework3.fragments.TodoItemListFragment;
-import com.har8yun.homeworks.homework3.models.TodoItem;
+import com.har8yun.homeworks.TodoAppFragments.R;
+import com.har8yun.homeworks.TodoAppFragments.fragments.TodoItemListFragment;
+import com.har8yun.homeworks.TodoAppFragments.models.TodoItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 
