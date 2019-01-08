@@ -14,29 +14,36 @@ public class TodoItem implements Parcelable{
     private Date date = new Date();
     private String repetition;
     private int priority;
-    private ArrayList<User> users;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    private boolean isSelected;
 
     public TodoItem() {
     }
 
-    public TodoItem(long id, String title, String description, Date date, String repetition, int priority, ArrayList<User> users) {
+    public TodoItem(long id, String title, String description, Date date, String repetition, int priority) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.date = date;
         this.repetition = repetition;
         this.priority = priority;
-        this.users = users;
     }
 
-    protected TodoItem(Parcel in) {
+    private TodoItem(Parcel in) {
         id = in.readLong();
         title = in.readString();
         description = in.readString();
         date = new Date(in.readLong());
         repetition = in.readString();
         priority = in.readInt();
-        users = in.createTypedArrayList(User.CREATOR);
     }
 
     @Override
@@ -47,7 +54,6 @@ public class TodoItem implements Parcelable{
         dest.writeLong(date.getTime());
         dest.writeString(repetition);
         dest.writeInt(priority);
-        dest.writeTypedList(users);
     }
 
     @Override
@@ -115,14 +121,4 @@ public class TodoItem implements Parcelable{
     public void setRepetition(String repetition) {
         this.repetition = repetition;
     }
-
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
-    }
-
-
 }

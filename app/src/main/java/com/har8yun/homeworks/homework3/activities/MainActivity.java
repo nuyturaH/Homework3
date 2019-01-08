@@ -1,113 +1,143 @@
 package com.har8yun.homeworks.homework3.activities;
 
-import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.TextView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.SearchView;
 
 import com.har8yun.homeworks.homework3.R;
-import com.har8yun.homeworks.homework3.adapter.TodoItemRecyclerAdapter;
+import com.har8yun.homeworks.homework3.fragments.TodoItemFragment;
+import com.har8yun.homeworks.homework3.fragments.TodoItemListFragment;
 import com.har8yun.homeworks.homework3.models.TodoItem;
+import com.har8yun.homeworks.homework3.util.EditOnClickListener;
+import com.har8yun.homeworks.homework3.util.SortOnClickListener;
 
-import java.util.ArrayList;
-import java.util.List;
 
+public class MainActivity extends AppCompatActivity implements TodoItemListFragment.OnFragmentInteractionListener, TodoItemFragment.OnFragmentInteractionListener {
 
-public class MainActivity extends AppCompatActivity {
-    public static final int REQUEST_CODE_1 = 13;
-    private static final int REQUEST_CODE_EDIT = 14;
-    public static TodoItem todoItem;
-    TodoItem item;
+    private FragmentManager fragmentManager = getSupportFragmentManager();
+    private FragmentTransaction fragmentTransaction;
+    private TodoItemListFragment todoItemListFragment;
+    private TodoItemFragment todoItemFragment;
+    public static boolean isEnabled;
 
-    List<TodoItem> todoItemList = new ArrayList<>();
+    EditOnClickListener editOnClickListener;
+    SortOnClickListener sortOnClickListener;
 
-    TextView infoText;
-    TodoItemRecyclerAdapter mRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        infoText = findViewById(R.id.info);
+        todoItemListFragment = new TodoItemListFragment();
 
-        findViewById(R.id.btn1_activity_main).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCreateItemActivity();
-            }
-        });
-    }
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment, todoItemListFragment);
+        fragmentTransaction.commit();
 
-    private void openCreateItemActivity(){
-        Intent intent = new Intent(this, CreateItemActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_1);
+        todoItemFragment = new TodoItemFragment();
+
+        editOnClickListener = todoItemFragment;
+        sortOnClickListener = todoItemListFragment;
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode != RESULT_CANCELED)
-        switch (requestCode) {
-            case REQUEST_CODE_1:
-                if (resultCode == RESULT_OK) {
-                    handleTodoItemResult(data);
+    public void onFragmentInteraction() {
+        sort.setVisible(false);
+        todoItemFragment = new TodoItemFragment();
+        editOnClickListener = todoItemFragment;
 
-                }
-                break;
-            case REQUEST_CODE_EDIT: {
-                if (resultCode == RESULT_OK) {
-                    TodoItem todoItem = data.getParcelableExtra(CreateItemActivity.ARG_TODOITEM);
-                    mRecyclerAdapter.updateItem(todoItem);
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment, todoItemFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        edit.setVisible(true);
+    }
 
-                    for (int i = 0; i < todoItemList.size(); i++) {
-                        if (todoItem.getId()==todoItemList.get(i).getId()){
-                            todoItemList.set(i, todoItem);
-                        }
-                    }
+    @Override
+    public void onFragmentInteraction2(TodoItem t) {
+        todoItemFragment = new TodoItemFragment();
+        editOnClickListener = todoItemFragment;
 
-                }
-            }
-            break;
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment, todoItemFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(TodoItem t) {
+        todoItemFragment = new TodoItemFragment();
+        editOnClickListener =  todoItemFragment;
+        TodoItemListFragment.todoItem = t;
+
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment, todoItemListFragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void editButton(boolean b) {
+        if (b){
+            edit.setVisible(true);
+            search.setVisible(false);
+            sort.setVisible(false);
+            TodoItemListFragment.searchMode= false;
+            edit.setIcon(R.drawable.ic_edit);
+
+        }else {
+            edit.setVisible(false);
+            search.setVisible(true);
+            sort.setVisible(true);
+            searchView.onActionViewCollapsed();
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
+    private MenuItem edit;
+    private MenuItem sort;
+    private MenuItem search;
+    private SearchView searchView;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
 
-    private void handleTodoItemResult(Intent data) {
-        Bundle args = data.getExtras();
-        if (args != null) {
-            todoItem = data.getExtras().getParcelable(CreateItemActivity.ARG_TODOITEM);
-            todoItemList.add(todoItem);
-            initRecyclerView();
-        }
+        edit = menu.findItem(R.id.action_menu_edit);
+        sort = menu.findItem(R.id.action_menu_sort);
+        search = menu.findItem(R.id.action_menu_search);
+
+
+        searchView = (SearchView) search.getActionView();
+        searchView.setOnQueryTextListener(todoItemListFragment);
+
+        edit.setVisible(false);
+
+        return true;
     }
 
-    private void initRecyclerView() {
-        mRecyclerAdapter = new TodoItemRecyclerAdapter();
-        mRecyclerAdapter.setmOnRvItemClickListener(
-                new TodoItemRecyclerAdapter.OnRvItemClickListener() {
-                    @Override
-                    public void onItemClicked(int pos) {
-
-                        item = todoItemList.get(pos);
-                        //Toast.makeText(MainActivity.this, "Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-
-                        openEditTodoItem(item);
-                    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_menu_edit:
+                if (isEnabled){
+                    edit.setIcon(R.drawable.ic_edit);
+                }else {
+                    edit.setIcon(R.drawable.ic_check);
                 }
-        );
+                editOnClickListener.editOnClickListener(isEnabled);
+                isEnabled = !isEnabled;
+                return true;
+            case R.id.action_menu_sort:
+                sortOnClickListener.sortOnClickListener();
+                return true;
+        }
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_activity_main);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(mRecyclerAdapter);
-        mRecyclerAdapter.addItems(todoItemList);
+        return true;
     }
 
-    private void openEditTodoItem(TodoItem todoItem) {
-        Intent intent = new Intent(this, CreateItemActivity.class);
-        intent.putExtra(CreateItemActivity.ARG_TODO_ITEM, todoItem);
-        startActivityForResult(intent, REQUEST_CODE_EDIT);
-    }
+
 }
+
